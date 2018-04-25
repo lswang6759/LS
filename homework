@@ -1,0 +1,106 @@
+#include <iostream>
+
+#define  rand(x) (rand()%x)
+using namespace std;
+
+class Matrix
+{
+public:
+    Matrix();               //无参构造函数
+    Matrix(int N, int M);   //有参构造函数
+    Matrix(Matrix &newObj);  //拷贝构造函数
+    ~Matrix();              //析构函数
+    
+    int arry[10][10] ; 
+    void setN(int N){this->n = N;};       //设置私有成员 n
+    int getN(void){return n;};
+    
+    void setM(int M){this->m = M;};        //设置私有成员 m
+    int getM(void){return m;};
+    
+private:
+    int n;                 //矩阵维度
+    int m;
+};
+
+#pragma region
+//无参构造函数
+Matrix::Matrix(void)
+{
+    cout << "without para worke" << endl;
+    int arry[3][3] = {
+        {1,2,3},
+        {4,5,6},
+        {7,8,9},
+    };
+    int (*pArry)[3];
+    pArry = arry;
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+        {
+            pArry[i][j] = int(rand(10));
+            cout<<pArry[i][j]<<" ";
+            if (j==2) {
+                cout<<"\n";
+            }
+        }
+}
+#pragma endregion
+
+//有参构造函数
+Matrix::Matrix(int N, int M)
+{
+        this->n = N;
+        this->m = M;
+        int Arry[N][M];
+        for (int i = 0 ; i < N ; i++) {
+            for ( int j = 0; j < M ; j++) {
+                Arry[i][j] = int(rand(15));
+                arry[i][j] = Arry[i][j];
+                cout<<Arry[i][j]<<" ";
+                if ( j == M-1)
+                {
+                    cout<<"\n";
+                }
+            }
+        }
+}
+//拷贝构造函数
+Matrix::Matrix(Matrix &newObj)
+{
+    cout<<"拷贝完成\n";
+    this->m = newObj.m;
+    this->n = newObj.n;
+    for (int i = 0; i< n; i++) {
+        for (int j = 0; j< m; j++) {
+            this->arry[i][j] = newObj.arry[i][j];
+            cout<<arry[i][j]<<" ";
+            if ( j == m-1)
+            {
+                cout<<"\n";
+            }
+            
+        }
+    }
+}
+
+//析构函数
+Matrix::~Matrix()
+{
+    cout << "object is being deleted" << endl;
+}
+
+//主函数
+int main()
+{
+    Matrix M1(5,5);
+    Matrix M2(M1);
+    return 0;
+    //cout << "new Matrix : \n"<< Matrix(2,3) << endl;
+    
+}
+
+
+
+
+
